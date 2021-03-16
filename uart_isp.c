@@ -14,14 +14,30 @@
 #include <linux/serial_core.h>
 #include <linux/delay.h>
 
-#define PLAT_NAME		"uart_isp"
 
+#define UART_ISP_MAJOR			200
+#define UART_ISP_MINOR_START	70
+#define UART_ISP_PORTS			1
+
+#define PLAT_NAME		"uart_isp"
+#define DRIVER_NAME		"uart_isp"
+#define DEV_NAME		"uart_isp"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Cuong D");
 MODULE_DESCRIPTION("UART ISP DRIVER");
 MODULE_VERSION("1.0.0");
 /************************ UART DRIVER ********************************/
+struct uart_driver uart_isp_driver =
+{
+	.owner 			= THIS_MODULE,
+	.driver_name 	= DRIVER_NAME,
+	.dev_name		= DEV_NAME,
+	.major			= UART_ISP_MAJOR,
+	.minor			= UART_ISP_MINOR_START,
+	.nr				= UART_ISP_PORTS
+};
+
 void uart_isp_start_tx(struct uart_port* port)
 {
 
@@ -125,12 +141,28 @@ struct platform_driver uart_isp_plat_driver =
 /****************************** INIT AND EXIT ********************************/
 int __init uart_isp_init(void)
 {
+	int retval = 0;
+	
+	retval = uart_register_driver(&uart_isp_driver);
+	if(retval)
+	{
+		printk(KERN_INFO "uart isp register error\n");
+		return retval;
+	}
+	
+	retval = platform_driver_register(&uart_isp_plat_driver);
+	if(retval)
+	{
+		printk(KERN_INFO "uart isp platform driver register error\n");
+		return retval;
+	}
 	return 0;
 }
 
 void __exit uart_isp_exit(void)
 {
-
+	platform_driver_unregister(&uart_isp_plat_driver);
+	uart_unregister_driver(&uart_isp_driver);
 }
 
 module_init(uart_isp_init);

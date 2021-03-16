@@ -3,6 +3,7 @@
 #include <linux/compiler.h>
 
 MODULE_INFO(vermagic, VERMAGIC_STRING);
+MODULE_INFO(name, KBUILD_MODNAME);
 
 __visible struct module __this_module
 __attribute__((section(".gnu.linkonce.this_module"))) = {
@@ -14,12 +15,9 @@ __attribute__((section(".gnu.linkonce.this_module"))) = {
 	.arch = MODULE_ARCH_INIT,
 };
 
-static const struct modversion_info ____versions[]
-__used
-__attribute__((section("__versions"))) = {
-	{ 0x1bfd809d, __VMLINUX_SYMBOL_STR(module_layout) },
-	{ 0xefd6cf06, __VMLINUX_SYMBOL_STR(__aeabi_unwind_cpp_pr0) },
-};
+#ifdef CONFIG_RETPOLINE
+MODULE_INFO(retpoline, "Y");
+#endif
 
 static const char __module_depends[]
 __used
@@ -27,4 +25,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "D1D0F53772AEC650746DDB6");
+MODULE_INFO(srcversion, "04B5B3E3B36C6A2F26FB818");
