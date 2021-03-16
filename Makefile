@@ -7,8 +7,11 @@ KERNEL_DIR := "/lib/modules/$(shell uname -r)/build"
 #export ARCH:=arm
 #export CROSS_COMPILE:=${TOOLS}/arm-linux-gnueabihf-
 
+EXTRA_CFLAGS := -I
 
 obj-m += uart_isp.o
+
+uart_isp-obj:= uart_register.o uart_isp.o uart_register.h
 
 all:
 	make -C ${KERNEL_DIR} M=${PWD} modules
