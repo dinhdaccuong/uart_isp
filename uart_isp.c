@@ -129,14 +129,26 @@ int uart_isp_plat_resume(struct platform_device *dev)
 {
 	return 0;
 }
+static const struct of_device_id uart_isp_dt_ids[] = 
+{
+	{ .compatible =  "xlnx,xps-uartlite-1.00.a" },
+	{											}
+};
+
+MODULE_DEVICE_TABLE(of, uart_isp_dt_ids);
 
 struct platform_driver uart_isp_plat_driver = 
 {
 	.probe = uart_isp_plat_probe,
-	.shutdown = uart_isp_plat_shutdown,
-	.suspend = uart_isp_plat_suspend,
-	.resume = uart_isp_plat_resume
+	.shutdown 	= uart_isp_plat_shutdown,
+	.suspend 	= uart_isp_plat_suspend,
+	.resume 	= uart_isp_plat_resume,
+	.driver 	= 
+			{
+				.name = PLAT_NAME	// same as this kernel module name	
+			}
 };
+
 
 /****************************** INIT AND EXIT ********************************/
 int __init uart_isp_init(void)
