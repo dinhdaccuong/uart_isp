@@ -14,6 +14,7 @@
 #include <linux/serial_core.h>
 #include <linux/delay.h>
 #include "uart_register.h"
+#include "uart_isp.h"
 
 #define UART_ISP_MAJOR				200
 #define UART_ISP_MINOR_START		70

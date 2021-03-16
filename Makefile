@@ -9,9 +9,18 @@ KERNEL_DIR := "/lib/modules/$(shell uname -r)/build"
 
 EXTRA_CFLAGS := -I
 
+INCLUDE_FILE := 					\
+		uart_isp.h 					\
+		uart_register.h
+
+
+OBJECT_FILE := 						\
+		uart_isp.o					\
+		uart_register.o				\
+
 obj-m += uart_isp.o
 
-uart_isp-obj:= uart_register.o uart_isp.o uart_register.h
+uart_isp-obj:= ${INCLUDE_FILE} ${OBJECT_FILE}
 
 all:
 	make -C ${KERNEL_DIR} M=${PWD} modules
