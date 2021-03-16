@@ -145,7 +145,8 @@ struct platform_driver uart_isp_plat_driver =
 	.resume 	= uart_isp_plat_resume,
 	.driver 	= 
 			{
-				.name = PLAT_NAME	// same as this kernel module name	
+				.name = PLAT_NAME,	// same as this kernel module name	
+				.of_match_table = of_match_ptr(uart_isp_dt_ids)
 			}
 };
 

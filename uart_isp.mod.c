@@ -27,4 +27,4 @@ __attribute__((section(".modinfo"))) =
 MODULE_ALIAS("of:N*T*Cxlnx,xps-uartlite-1.00.a");
 MODULE_ALIAS("of:N*T*Cxlnx,xps-uartlite-1.00.aC*");
 
-MODULE_INFO(srcversion, "2F8FEBD51A721CF9C014777");
+MODULE_INFO(srcversion, "20F8C7090826083A67C9D46");
